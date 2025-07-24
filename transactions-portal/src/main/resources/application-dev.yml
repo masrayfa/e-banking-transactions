@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ebanking_dev
+    username: dev_user
+    password: dev_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Auto create tables for dev
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: transactions-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+app:
+  jwt:
+    secret: mySecretKeyForJWTSigningThatShouldBeAtLeast32CharactersLong
+    expiration-ms: 86400000 # 24 hours in milliseconds
+  exchange-rate:
+    api-url: https://api.currencylayer.com
+    api-key: dummy-api-key-for-dev
